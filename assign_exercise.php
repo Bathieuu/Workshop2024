@@ -28,8 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exercise_id'])) {
             // Exercice déjà ajouté, renvoie une erreur
             echo json_encode(['status' => 'error', 'message' => 'Cet exercice est déjà dans votre programme.']);
         } else {
-            // Sinon, insère l'exercice dans le programme de l'utilisateur avec une requête préparée
-            $insert_query = "INSERT INTO user_exercises (user_id, exercise_id) VALUES (?, ?)";
+            // Sinon, insère l'exercice avec une date d'assignation
+            $insert_query = "INSERT INTO user_exercises (user_id, exercise_id, assigned_date, status) 
+                             VALUES (?, ?, NOW(), 'not_started')";
 
             // Préparer la requête
             if ($stmt_insert = mysqli_prepare($conn, $insert_query)) {
