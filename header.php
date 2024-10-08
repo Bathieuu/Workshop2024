@@ -13,20 +13,27 @@ $isKine = isset($_SESSION['isKine']) && $_SESSION['isKine'] == 1;
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>HomeKiné</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Image/logo-transparent.png" type="image/png">
+
 </head>
+
 <body>
     <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="dashboard.php">HomeKiné</a>
+                <a href="dashboard.php"><img src="Image/logo-transparent.png" style="height:20px; width:auto;"
+                        alt="Logo">
+                    HomeKiné</a>
             </div>
             <ul class="nav-links">
                 <li><a href="dashboard.php">Tableau de bord</a></li>
                 <li><a href="exercices.php">Exercices</a></li>
+                <li><a href="saisir_progres.php">Saisir Progrès</a></li>
                 <li><a href="voir_progres.php">Voir Progrès</a></li>
                 <li><a href="profil.php">Profil</a></li>
                 <?php if ($isKine): ?>

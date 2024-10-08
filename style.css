@@ -447,3 +447,16 @@ button:hover {
     width: 100%;
     margin-top: 15px;
 }
+
+
+.chart-container {
+    width: 80%; /* Ajustez cette valeur pour réduire ou augmenter la largeur */
+    height: 300px; /* Ajustez cette valeur pour contrôler la hauteur */
+    margin: 0 auto; /* Centre le graphique horizontalement */
+    position: relative;
+}
+
+canvas {
+    width: 100% !important; /* Assure que le canvas prend toute la largeur du conteneur */
+    height: 100% !important; /* Assure que le canvas prend toute la hauteur du conteneur */
+}

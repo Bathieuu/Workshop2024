@@ -1,6 +1,6 @@
 <?php
-include('header.php'); // Inclure le header
-include('config.php');
+include ('header.php'); // Inclure le header
+include ('config.php');
 
 
 if (!isset($_SESSION['user_id'])) {
@@ -22,24 +22,39 @@ if (isset($_POST['submit_progress'])) {
     $score = $_POST['score'];
     $comment = $_POST['comment'];
     $progress_date = date('Y-m-d');
-    
-    // Insère la progression dans la table 'progress'
+
+    // Prépare la requête SQL
     $insert_query = "INSERT INTO progress (user_id, exercise_id, progress_date, score, comment) 
-                     VALUES ('$user_id', '$exercise_id', '$progress_date', '$score', '$comment')";
-    
-    if (mysqli_query($conn, $insert_query)) {
-        echo "Progression ajoutée avec succès!";
+                     VALUES (?, ?, ?, ?, ?)";
+
+    // Prépare l'instruction
+    if ($stmt = mysqli_prepare($conn, $insert_query)) {
+        // Lie les variables à l'instruction préparée
+        mysqli_stmt_bind_param($stmt, "iisis", $user_id, $exercise_id, $progress_date, $score, $comment);
+
+        // Exécute l'instruction préparée
+        if (mysqli_stmt_execute($stmt)) {
+            echo "Progression ajoutée avec succès!";
+        } else {
+            echo "Erreur : " . mysqli_stmt_error($stmt);
+        }
+
+        // Ferme l'instruction
+        mysqli_stmt_close($stmt);
     } else {
-        echo "Erreur : " . mysqli_error($conn);
+        echo "Erreur lors de la préparation de la requête : " . mysqli_error($conn);
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Saisir Progression</title>
 </head>
+
 <body>
     <h1>Saisir votre progression</h1>
     <form method="POST" action="">
@@ -59,8 +74,9 @@ if (isset($_POST['submit_progress'])) {
         <button type="submit" name="submit_progress">Soumettre la progression</button>
     </form>
 </body>
+
 </html>
 
 <?php
-include('footer.php');
+include ('footer.php');
 ?>

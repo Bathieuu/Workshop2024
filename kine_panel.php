@@ -20,7 +20,7 @@ $exercise_result = mysqli_query($conn, $exercise_query);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id']) && isset($_POST['exercise_id'])) {
     $user_id = intval($_POST['user_id']);
     $exercise_id = intval($_POST['exercise_id']);
-    
+
     // Vérifier si cet exercice a déjà été attribué à l'utilisateur
     $check_query = "SELECT * FROM user_exercises WHERE user_id = '$user_id' AND exercise_id = '$exercise_id'";
     $check_result = mysqli_query($conn, $check_query);
@@ -30,27 +30,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id']) && isset($
     } else {
         // Attribuer l'exercice à l'utilisateur
         $assign_query = "INSERT INTO user_exercises (user_id, exercise_id, assigned_date, status) 
-                         VALUES ('$user_id', '$exercise_id', NOW(), 'not_started')";
-        if (mysqli_query($conn, $assign_query)) {
-            $message = "Exercice attribué avec succès.";
+                         VALUES (?, ?, NOW(), 'not_started')";
+
+        // Préparer la requête
+        if ($stmt = mysqli_prepare($conn, $assign_query)) {
+            // Lier les variables aux marqueurs de la requête préparée
+            mysqli_stmt_bind_param($stmt, "ii", $user_id, $exercise_id);
+
+            // Exécuter la requête
+            if (mysqli_stmt_execute($stmt)) {
+                $message = "Exercice attribué avec succès.";
+            } else {
+                $message = "Erreur lors de l'attribution de l'exercice.";
+            }
+
+            // Fermer l'instruction préparée
+            mysqli_stmt_close($stmt);
         } else {
-            $message = "Erreur lors de l'attribution de l'exercice.";
+            $message = "Erreur lors de la préparation de la requête.";
         }
     }
+
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Panel Kiné</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <h1>Panel Kiné - Ajouter des exercices aux utilisateurs</h1>
-    
+
     <?php if (isset($message)): ?>
         <p><?php echo $message; ?></p>
     <?php endif; ?>
@@ -75,4 +91,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id']) && isset($
 
     <a href="dashboard.php">Retour au tableau de bord</a>
 </body>
+
 </html>

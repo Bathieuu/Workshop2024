@@ -1,6 +1,6 @@
 <?php
-include('header.php');
-include('config.php');
+include ('header.php');
+include ('config.php');
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -31,19 +31,24 @@ while ($row = mysqli_fetch_assoc($result)) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Voir Progression</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Ajout de Chart.js -->
 </head>
+
 <body>
     <h1>Vos progrès</h1>
 
     <?php foreach ($exercise_data as $exercise_id => $data): ?>
         <h2>Progression pour <?php echo $data['name']; ?></h2>
         <p>Groupe musculaire : <?php echo $data['muscle_group']; ?></p>
-        <p>Séries : <?php echo $data['sets'] ?: 'Non défini'; ?> | Répétitions : <?php echo $data['reps'] ?: 'Non défini'; ?></p>
-        <canvas id="chart-<?php echo $exercise_id; ?>" width="400" height="200"></canvas>
+        <p>Séries : <?php echo $data['sets'] ?: 'Non défini'; ?> | Répétitions :
+            <?php echo $data['reps'] ?: 'Non défini'; ?></p>
+        <div class="chart-container">
+            <canvas id="chart-<?php echo $exercise_id; ?>"></canvas>
+        </div>
 
         <script>
             var ctx = document.getElementById('chart-<?php echo $exercise_id; ?>').getContext('2d');
@@ -65,15 +70,18 @@ while ($row = mysqli_fetch_assoc($result)) {
                             beginAtZero: true,
                             max: 10
                         }
-                    }
+                    },
+                    maintainAspectRatio: false // Permet au CSS de contrôler le ratio
                 }
             });
         </script>
     <?php endforeach; ?>
 
+
 </body>
+
 </html>
 
 <?php
-include('footer.php');
+include ('footer.php');
 ?>

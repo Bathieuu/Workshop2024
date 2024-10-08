@@ -5,15 +5,29 @@ if (isset($_POST['register'])) {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-    $query = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
-    $result = mysqli_query($conn, $query);
+    // Préparer la requête d'insertion
+    $query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
 
-    if ($result) {
-        header("Location: login.php");
+    // Préparer l'instruction
+    if ($stmt = mysqli_prepare($conn, $query)) {
+        // Lier les variables à la requête préparée
+        mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password);
+
+        // Exécuter la requête
+        if (mysqli_stmt_execute($stmt)) {
+            // Rediriger vers la page de connexion après l'inscription réussie
+            header("Location: login.php");
+        } else {
+            echo "Erreur lors de l'inscription.";
+        }
+
+        // Fermer l'instruction préparée
+        mysqli_stmt_close($stmt);
     } else {
-        echo "Erreur lors de l'inscription.";
+        echo "Erreur lors de la préparation de la requête : " . mysqli_error($conn);
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
