@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('config.php');
 
 // Vérifie si l'utilisateur est connecté

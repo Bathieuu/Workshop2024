@@ -20,11 +20,13 @@ if ($selected_group) {
     $exercise_query = "SELECT exercises.*, muscle_groups.name AS muscle_group_name 
                        FROM exercises 
                        JOIN muscle_groups ON exercises.muscle_group_id = muscle_groups.id 
-                       WHERE muscle_group_id = '$selected_group'";
+                       WHERE muscle_group_id = '$selected_group'
+                       ORDER BY id ASC";
 } else {
     $exercise_query = "SELECT exercises.*, muscle_groups.name AS muscle_group_name 
                        FROM exercises 
-                       JOIN muscle_groups ON exercises.muscle_group_id = muscle_groups.id";
+                       JOIN muscle_groups ON exercises.muscle_group_id = muscle_groups.id
+                       ORDER BY id ASC";
 }
 $exercise_result = mysqli_query($conn, $exercise_query);
 ?>

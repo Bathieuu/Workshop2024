@@ -1,6 +1,6 @@
 <?php
-include ('header.php');
-include ('config.php');
+include('header.php');
+include('config.php');
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Récupère les exercices attribués à l'utilisateur avec toutes les informations nécessaires
+// Récupère les exercices attribués à l'utilisateur
 $query = "SELECT user_exercises.id AS user_exercise_id, 
                  exercises.name, 
                  exercises.description, 
@@ -28,13 +28,11 @@ $result = mysqli_query($conn, $query);
 
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <title>Tableau de bord</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <h1>Bienvenue sur votre tableau de bord</h1>
     <h2>Vos exercices à réaliser</h2>
@@ -48,10 +46,10 @@ $result = mysqli_query($conn, $query);
                 Groupe musculaire : <?php echo $row['muscle_group_name']; ?><br>
                 Équipement nécessaire : <?php echo $row['equipment_needed'] ?: 'Aucun'; ?><br>
                 Date assignée : <?php echo $row['assigned_date']; ?><br>
-                Statut :
+                Statut : 
                 <span class="<?php echo $row['status']; ?>">
                     <?php
-                    switch ($row['status']) {
+                    switch($row['status']) {
                         case 'not_started':
                             echo 'Non commencé';
                             break;
@@ -64,25 +62,28 @@ $result = mysqli_query($conn, $query);
                     }
                     ?>
                 </span>
+                
+                <!-- Formulaire pour changer le statut -->
                 <form method="POST" action="update_status.php">
                     <input type="hidden" name="user_exercise_id" value="<?php echo $row['user_exercise_id']; ?>">
                     <label for="status">Changer le statut :</label>
                     <select name="status" id="status">
-                        <option value="not_started" <?php echo $row['status'] == 'not_started' ? 'selected' : ''; ?>>Non
-                            commencé</option>
-                        <option value="in_progress" <?php echo $row['status'] == 'in_progress' ? 'selected' : ''; ?>>En cours
-                        </option>
-                        <option value="completed" <?php echo $row['status'] == 'completed' ? 'selected' : ''; ?>>Terminé
-                        </option>
+                        <option value="not_started" <?php echo $row['status'] == 'not_started' ? 'selected' : ''; ?>>Non commencé</option>
+                        <option value="in_progress" <?php echo $row['status'] == 'in_progress' ? 'selected' : ''; ?>>En cours</option>
+                        <option value="completed" <?php echo $row['status'] == 'completed' ? 'selected' : ''; ?>>Terminé</option>
                     </select>
                     <button type="submit">Mettre à jour</button>
                 </form>
-
+                
+                <!-- Formulaire pour retirer l'exercice -->
+                <form method="POST" action="remove_exercise.php" onsubmit="return confirm('Êtes-vous sûr de vouloir retirer cet exercice ?');">
+                    <input type="hidden" name="user_exercise_id" value="<?php echo $row['user_exercise_id']; ?>">
+                    <button type="submit">Retirer l'exercice</button>
+                </form>
             </li>
         <?php endwhile; ?>
     </ul>
 
     <a href="logout.php">Déconnexion</a>
 </body>
-
 </html>

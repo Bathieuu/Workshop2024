@@ -110,6 +110,45 @@ footer {
     box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Style global pour centrer les boutons */
+form,
+div,
+.section {
+    display: flex;
+    justify-content: center;
+    /* Centre horizontalement */
+    align-items: center;
+    /* Centre verticalement si nécessaire */
+    flex-direction: column;
+    /* Place les boutons en colonne si plusieurs */
+}
+
+/* Style pour les boutons */
+button,
+input[type="submit"] {
+    display: block;
+    margin: 10px auto;
+    /* Centre automatiquement horizontalement */
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    width: auto;
+    /* Adapte la largeur à son contenu */
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+
+
+
 /* Form Styles */
 form {
     max-width: 600px;
