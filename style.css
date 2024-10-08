@@ -1,0 +1,410 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding-top: 70px;
+    /* Pour compenser la hauteur du header */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1,
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+a:hover {
+    color: darkblue;
+}
+
+/* Header Styles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 15px 0;
+    z-index: 1000;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar Styles */
+.navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo a {
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar .nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar .nav-links li {
+    margin-left: 20px;
+}
+
+.navbar .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
+.navbar .nav-links a:hover {
+    background-color: #575757;
+    border-radius: 4px;
+}
+
+/* Main Content Styles */
+main {
+    flex: 1;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    /* Limite la largeur sur les grands écrans */
+    box-sizing: border-box;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Styles */
+form {
+    max-width: 600px;
+    width: 100%;
+    /* Prend tout l'espace disponible sur petits écrans */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: inline-block;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form input[type="date"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+form textarea {
+    resize: vertical;
+    height: 150px;
+}
+
+
+
+form button[type="submit"] {
+    width: 75%;
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+form input:disabled,
+form select:disabled,
+form textarea:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+/* Style pour les éléments de la liste des exercices */
+.exercise-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    /* Limiter la largeur des éléments sur grands écrans */
+}
+
+/* Style pour chaque carte d'exercice */
+.exercise-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    /* Limite la largeur de la carte */
+    text-align: left;
+    box-sizing: border-box;
+    /* S'assure que le padding soit inclus dans la largeur totale */
+    overflow: hidden;
+    /* Empêche tout contenu de déborder de la carte */
+}
+
+/* Limiter la taille du formulaire à l'intérieur de l'exercise-card */
+.exercise-card form {
+    width: 100%;
+    /* Le formulaire prend toute la largeur de la carte */
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    /* Empile les éléments du formulaire verticalement */
+    gap: 10px;
+    /* Espace entre les éléments du formulaire */
+    padding: 0;
+    /* Supprime tout padding du formulaire */
+    box-sizing: border-box;
+}
+
+/* Styles pour le select et le bouton dans le formulaire */
+.exercise-card select,
+.exercise-card button {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    align-self: center;
+}
+
+/* Ajout d'un hover pour le bouton */
+.exercise-card button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.exercise-card button:hover {
+    background-color: #218838;
+}
+
+/* Général */
+.exercise-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    /* Limite la largeur de la liste */
+}
+
+
+/* Button Styles */
+button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Autres ajustements pour la structure */
+.main-content {
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .navbar .nav-links li {
+        margin-left: 10px;
+    }
+
+    .navbar .logo a {
+        font-size: 20px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    .exercise-card {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px;
+    }
+
+    header {
+        padding: 10px 0;
+    }
+
+    form button[type="submit"] {
+        font-size: 14px;
+    }
+
+    .navbar .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar .nav-links a {
+        padding: 10px 0;
+        font-size: 14px;
+    }
+
+    .exercise-card strong {
+        font-size: 16px;
+    }
+
+    .exercise-card button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar .logo a {
+        font-size: 18px;
+    }
+
+    .exercise-card strong {
+        font-size: 14px;
+    }
+
+    .exercise-card button {
+        width: 100%;
+        padding: 8px 0;
+    }
+
+    form {
+        padding: 10px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form input[type="number"],
+    form input[type="date"],
+    form select,
+    form textarea {
+        font-size: 14px;
+    }
+}
+
+
+/* Styles spécifiques pour le bouton "Ajouter à mon programme" */
+.add-program-button {
+    width: 100%;
+    /* Prendre toute la largeur de la div parent */
+    padding: 12px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    margin-top: 15px;
+}
+
+/* Effet au survol */
+.add-program-button:hover {
+    background-color: #218838;
+}
+
+/* Assurer que le formulaire ne déborde pas */
+.exercise-card form {
+    width: 100%;
+    margin-top: 15px;
+}
